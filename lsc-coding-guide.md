@@ -181,22 +181,22 @@ else
 ### ❌ 錯誤寫法
 ```livescript
 setup-events: ->
-  element.add-event-listener 'click', @on-click  # context 會跑掉
+  element.addEventListener 'click', @on-click  # context 會跑掉
 ```
 
 ### ✅ 正確寫法
 ```livescript
 setup-events: ->
-  element.add-event-listener 'click', (e) ~> @on-click.apply @, [e]
-  
+  element.addEventListener 'click', (e) ~> @on-click.apply @, [e]
+
   # 或使用 bind（但 apply 更明確）
-  element.add-event-listener 'click', @on-click.bind(@)
+  element.addEventListener 'click', @on-click.bind(@)
 ```
 
 ### Event Handler 方法定義
 ```livescript
 on-click: (e) ~>  # 使用 ~> 確保能存取實例變數
-  e.prevent-default!
+  e.preventDefault!
   @state = !@state  # 正確存取實例屬性
 ```
 
@@ -239,33 +239,33 @@ widget.prototype = Object.create(Object.prototype) <<<
     @render!
   
   setup-events: ->
-    @container.add-event-listener 'click', (e) ~> @on-click.apply @, [e]
-    document.add-event-listener 'keydown', (e) ~> @on-keydown.apply @, [e]
-  
+    @container.addEventListener 'click', (e) ~> @on-click.apply @, [e]
+    document.addEventListener 'keydown', (e) ~> @on-keydown.apply @, [e]
+
   on-click: (e) ~>
-    e.prevent-default!
+    e.preventDefault!
     @toggle!
-  
+
   on-keydown: (e) ~>
     return unless e.key is 'Escape'
     @deactivate!
-  
+
   toggle: ->
     if @is-active then @deactivate! else @activate!
-  
+
   activate: ->
     @is-active = true
-    @container.class-list.add 'active'
+    @container.classList.add 'active'
     @trigger 'activate'
-  
+
   deactivate: ->
     @is-active = false
-    @container.class-list.remove 'active'
+    @container.classList.remove 'active'
     @trigger 'deactivate'
-  
+
   trigger: (event-name, data = {}) ->
     event = new CustomEvent event-name, detail: data
-    @container.dispatch-event event
+    @container.dispatchEvent event
   
   render: ->
     # 渲染邏輯
@@ -278,7 +278,7 @@ else
   module.exports = widget
 
 # 使用方式
-container = document.query-selector '#my-widget'
+container = document.querySelector '#my-widget'
 my-widget = new widget(container, { theme: 'dark' })
 ```
 
@@ -292,6 +292,7 @@ my-widget = new widget(container, { theme: 'dark' })
 - **DOM 根元素**：使用 `root` 而非 `container`
 - **原始參數保存**：使用 `@_opt` 保存建構子參數
 - **私有狀態**：使用底線前綴如 `@_cache`, `@_state`
+- **Node.js/Browser API 變數**：使用 camelCase 而非 dash，保持與原生 API 一致（如 `querySelector` 而非 `query-selector`，`addEventListener` 而非 `add-event-listener`）
 
 ### 2. 註解原則
 - **主要目的**：解釋「為什麼這樣寫」而非「寫了什麼」
@@ -304,15 +305,15 @@ my-widget = new widget(container, { theme: 'dark' })
 setup-events: ->
   # Use document-level events to handle mouse move/up anywhere
   # This prevents losing drag state when cursor moves outside panels
-  document.add-event-listener 'mousemove', @on-mouse-move
-  
+  document.addEventListener 'mousemove', @on-mouse-move
+
   # Store original options for potential reconfiguration - see docs
   @_opt = original-options
 
 # ❌ 避免的註解 - 重述程式碼
 setup-events: ->
   # Add event listener to document for mousemove
-  document.add-event-listener 'mousemove', @on-mouse-move
+  document.addEventListener 'mousemove', @on-mouse-move
 ```
 
 ### 2. 實例變數管理
