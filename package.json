@@ -1,14 +1,11 @@
 {
-  "name": "prompts",
-  "version": "1.0.0",
+  "name": "@plotdb/prompts",
+  "version": "0.0.1",
   "description": "this is expected to be a private repo. It's a set of guidelines or prompts for internal developing with AI.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "private": true,
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "zbryikt",
+  "license": "private",
   "devDependencies": {
     "@zbryikt/template": "^2.4.1",
     "bootstrap": "^4.6.1",
