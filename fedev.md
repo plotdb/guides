@@ -5,11 +5,12 @@
 使用 `@zbryikt/template` 模組啟動開發伺服器：
 
 ```bash
-npx server -r web -o true
+npx server -r web -p 8080 -o true
 ```
 
 **參數說明：**
 - `-r web`: 指定 web root 目錄
+- `-p 8080`: 指定伺服器 port（預設為 8080）
 - `-o true`: 啟動時自動開啟瀏覽器
 
 ## 2. 專案結構
