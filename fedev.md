@@ -66,6 +66,10 @@ script(type="module"): :lsc
 - `@plotdb/rescope`
 - `@plotdb/csscope`
 - `fedep`
+    
+### 3.1 安裝模組規範
+
+安裝新模組時，除非有特定版本需求（如 `bootstrap`），否則應使用 `npm install --save <package>@latest` 或直接 `npm install --save <package>` 來獲取最新版本，避免手動指定版本號。
 
 ## 4. 前端資源管理 (fedep)
 
