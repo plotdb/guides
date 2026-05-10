@@ -6,3 +6,5 @@
 | `@plotdb/datahub` | OT-based pub/sub 資料同步 hub，支援 scoped hub 與 sharedb | [datahub/index.md](datahub/index.md) |
 | `@plotdb/form` | 表單驗證框架：widget、opset、op、term、valdef、valspec | [form/index.md](form/index.md) |
 | `@plotdb/konfig` | 依 config schema 自動生成 UI，支援動態 meta 更新 | [konfig/index.md](konfig/index.md) |
+| `@plotdb/srcbuild` | 前端 build server：監聽 src/ 編譯 pug/ls/stylus，提供 `+script`/`+css` mixin | [srcbuild/index.md](srcbuild/index.md) |
+| `@plotdb/fedep` | 前端依賴安裝器：從 node_modules 複製套件到 web/static/assets/lib，建立 main symlink | [fedep/index.md](fedep/index.md) |
