@@ -366,3 +366,46 @@ create-widget = (type, container, options) ->
 ```
 
 這種 pattern 提供了類似 class 的功能，同時保持了對原型鏈的完全控制，適合需要高度客製化的場景。
+
+---
+
+## 常見語法陷阱
+
+### 物件 key 含有連字號
+
+含有連字號（或其他特殊字元）的 key 必須用引號包住，不能使用 `\name` symbol 語法。
+
+```livescript
+# ✗ 錯誤 - \key-name 作為 object key 不會如預期運作
+obj =
+  \generate-label: -> ...
+
+# ✓ 正確 - 使用引號
+obj =
+  "generate-label": -> ...
+
+# ✓ 無連字號時可直接寫
+obj =
+  generate: -> ...
+```
+
+此規則適用於所有物件定義的場合，包含 ldview 的 `handler:`、`action:` 等。
+
+---
+
+### Word-list 語法 `<[ ]>`
+
+`<[word1 word2]>` 是 `["word1", "word2"]` 的簡寫，內部的文字會自動成為字串。
+不可在 `<[ ]>` 內加引號，否則引號會被當作字元的一部分。
+
+```livescript
+# ✗ 錯誤 - 引號會被包進字串裡
+<["generate" "generate-label"]>   # → ['"generate"', '"generate-label"']
+
+# ✓ 正確
+<[generate generate-label]>       # → ["generate", "generate-label"]
+
+# ✓ 完整陣列寫法也可以
+["generate", "generate-label"]
+```
+
