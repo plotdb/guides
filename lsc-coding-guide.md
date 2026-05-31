@@ -393,6 +393,27 @@ obj =
 
 ---
 
+### 運算元前後必須加空白
+
+`+`、`-`、`*`、`/` 等運算元前後必須加空白，否則 LiveScript 會做出非預期的解析：
+
+- `a-b` → 被當作 camelCase，解析成變數名 `aB`
+- `a-2` → 直接語法錯誤
+
+```livescript
+# ✗ 錯誤
+result = a-b
+result = a-2
+result = x*2+y/3
+
+# ✓ 正確 - 運算元前後加空白
+result = a - b
+result = a - 2
+result = x * 2 + y / 3
+```
+
+---
+
 ### Word-list 語法 `<[ ]>`
 
 `<[word1 word2]>` 是 `["word1", "word2"]` 的簡寫，內部的文字會自動成為字串。
