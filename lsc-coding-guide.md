@@ -430,3 +430,20 @@ result = x * 2 + y / 3
 ["generate", "generate-label"]
 ```
 
+### `{}` vs `?` 存取巢狀屬性
+
+`obj.{}key` 與 `obj.key?prop` 都可以安全存取巢狀屬性，但行為不同：
+
+ - `obj.{}key`：如果 `obj.key` 不存在，會就地建立空物件並賦值，有副作用
+ - `obj.key?prop`：如果 `obj.key` 不存在，直接回傳 `undefined`，不修改原物件
+
+單純讀取時應使用 `?`；只有在確實需要確保路徑存在（例如逐步寫入巢狀屬性）時才用 `{}`。
+
+    config = {}
+
+    # 避免 - 有副作用，執行後 config 變成 { mod: {} }
+    datasrc = config.{}mod.datasrc or \data
+
+    # 正確 - 純讀取，不動原物件
+    datasrc = config.mod?datasrc or \data
+
