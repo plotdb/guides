@@ -6,6 +6,17 @@
   "keywords": [],
   "author": "zbryikt",
   "license": "private",
+  "bin": {
+    "plotdb-guides": "cli.js"
+  },
+  "files": [
+    "cli.js",
+    "src"
+  ],
+  "dependencies": {
+    "fs-extra": "^9.0.1",
+    "yargs": "^16.1.0"
+  },
   "devDependencies": {
     "@zbryikt/template": "^2.4.2",
     "bootstrap": "^4.6.1",
