@@ -1,5 +1,5 @@
 {
-  "name": "@plotdb/prompts",
+  "name": "@plotdb/guides",
   "version": "0.0.1",
   "description": "this is expected to be a private repo. It's a set of guidelines or prompts for internal developing with AI.",
   "private": true,
@@ -7,7 +7,7 @@
   "author": "zbryikt",
   "license": "private",
   "devDependencies": {
-    "@zbryikt/template": "^2.4.1",
+    "@zbryikt/template": "^2.4.2",
     "bootstrap": "^4.6.1",
     "fedep": "^1.6.0"
   }
