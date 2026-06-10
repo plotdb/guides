@@ -20,6 +20,6 @@
   "devDependencies": {
     "@zbryikt/template": "^2.4.2",
     "bootstrap": "^4.6.1",
-    "fedep": "^1.6.0"
+    "fedep": "^1.7.0"
   }
 }
