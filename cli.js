@@ -13,7 +13,7 @@ cmds.init = {
     var cwd = process.cwd();
     var contextDir = path.join(cwd, 'context');
     var sharedLink = path.join(contextDir, 'shared');
-    var guidesRoot = path.join(cwd, 'node_modules', '@plotdb', 'guides', 'src');
+    var guidesRoot = path.relative(contextDir, path.join(cwd, 'node_modules', '@plotdb', 'guides', 'src'));
 
     if (!fs.existsSync(guidesRoot)) {
       console.error('[ERROR] @plotdb/guides is not installed. Cannot find: ' + guidesRoot);
