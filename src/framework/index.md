@@ -8,3 +8,4 @@
 | `@loadingio` | 前端工具：DOM 操作（ldquery）、防抖（debounce.js） | [@loadingio/index.md](@loadingio/index.md) |
 | `ldview` | Headless HTML 模板引擎，用 `ld` 屬性綁定 JS handler，支援循環、巢狀、遞歸視圖 | [ldview/index.md](ldview/index.md) |
 | `proxise` | Promise Proxy：在函數外部 resolve/reject，`proxise.once` 保證只執行一次的初始化 | [proxise/index.md](proxise/index.md) |
+| `servebase` | 基於 Express.js 伺服器框架：啟動/停止/重啟、路由模組、viewlocals、多 server 環境、Node.js 版本 | [servebase/index.md](servebase/index.md) |
