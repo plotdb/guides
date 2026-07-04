@@ -1,5 +1,12 @@
 # Change Logs
 
+## v0.0.4
+
+ - add version-control.md
+ - consolidate fedep docs from `@plotdb/fedep` to `framework/fedep`
+ - follow md-style-guide in fedep and version-control docs
+
+
 ## v0.0.3
 
  - fix path issue when initing
