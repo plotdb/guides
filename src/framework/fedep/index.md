@@ -25,6 +25,7 @@
 
 ## 前端依賴安裝
 
+
 ### package.json 設定
 
     "frontendDependencies": {
@@ -36,6 +37,7 @@
       ]
     }
 
+
 ### 安裝邏輯
 
 fedep 從 `node_modules` 複製套件到 `{root}/{模組名}/{版本}/`，並建立 `{root}/{模組名}/main` symlink 指向該版本。複製來源優先順序：
@@ -43,6 +45,7 @@ fedep 從 `node_modules` 複製套件到 `{root}/{模組名}/{版本}/`，並建
  - 若有 `dir` 欄位，複製套件內的指定子目錄
  - 否則若 `dist` 存在且有 `--use-dist` flag，複製 `dist/`
  - 否則複製整個套件
+
 
 ### 安裝後目錄結構
 
@@ -55,6 +58,7 @@ fedep 從 `node_modules` 複製套件到 `{root}/{模組名}/{版本}/`，並建
 
 `main` symlink 讓 `+script`/`+css` mixin 永遠用 `main/` 引用，不需隨版本升級改路徑。
 
+
 ### 模組物件欄位
 
 模組清單中的每個項目可以是字串（模組名稱）或物件；物件格式包含以下欄位：
@@ -65,6 +69,7 @@ fedep 從 `node_modules` 複製套件到 `{root}/{模組名}/{版本}/`，並建
  - `optional`：`true` 時找不到不報錯，即使不在 `optionalDependencies` 中
  - `browserify`：`true` 或 object，對模組跑 browserify 打包；若為 object，其內容作為 browserify 選項
  - `transpile`：需要 transpile 模組時加入，含 `files` 欄位（要 transpile 的檔案清單）
+
 
 ### 本地 repo 開發
 
@@ -77,6 +82,7 @@ fedep 從 `node_modules` 複製套件到 `{root}/{模組名}/{版本}/`，並建
     npx fedep -l "mod1:path-to-mod1;mod2:path-to-mod2"
 
 路徑支援 `~` 展開。
+
 
 ### 指令選項
 
@@ -124,6 +130,7 @@ fedep 從 `node_modules` 複製套件到 `{root}/{模組名}/{版本}/`，並建
     npx fedep publish -g release      # 同上（明確指定 branch 名）
     npx fedep publish -g --skip-dist  # web 專案無 dist 時用此 flag
 
+
 ### 完整流程
 
  1. 準備 work folder `.fedep/publish/`（同 npm publish 的合併邏輯）
@@ -138,12 +145,14 @@ fedep 從 `node_modules` 複製套件到 `{root}/{模組名}/{版本}/`，並建
     - `git add -f * && git commit -m "regen" && git push`
  7. 建立 GitHub release（`gh release create v{version} --target release --title {version} --notes-file -`）；release notes 從 CHANGELOG.md 解析後透過 stdin 傳入，若 CHANGELOG 無對應 section 改用 `--generate-notes`
 
+
 ### 前提條件
 
  - `package.json` 有 `version` 欄位（semver `x.y.z`）
  - `gh` CLI 已安裝並登入（`gh auth login`）
  - git remote `origin` 已設定
  - 若無 `--skip-dist`：`dist/` 資料夾存在
+
 
 ### CHANGELOG.md 格式
 
@@ -157,6 +166,7 @@ fedep 從 `node_modules` 複製套件到 `{root}/{模組名}/{版本}/`，並建
      - init release
 
 解析邏輯：找第一個包含版本號字串的行作為開始，收集後續行直到遇到下一個 `#+\s+v?\d+\.\d+\.\d+` 格式的標題，去掉頭尾空白行後作為 release notes。`package.json` 的 `version` 必須與 CHANGELOG.md 中對應 section 的版本號一致。
+
 
 ### web 專案推薦設定
 

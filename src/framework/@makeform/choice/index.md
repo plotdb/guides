@@ -4,20 +4,21 @@
 
 原始碼：`makeform/blocks/choice/src/index.ls`
 
+
 ## 特性
 
-- `valdef`: `"@plotdb/form:valdef/choice"`
-- `valspec`: label 已透過 `hitf!totext` 轉換
-- Value 格式：`{list: [keys], other: {text}}`
-- Other 選項：`__other__` in list 標記已勾選，`other.text` 為自填值
+ - `valdef`: `"@plotdb/form:valdef/choice"`
+ - `valspec`: label 已透過 `hitf!totext` 轉換
+ - Value 格式：`{list: [keys], other: {text}}`
+ - Other 選項：`__other__` in list 標記已勾選，`other.text` 為自填值
+
 
 ## valspec
 
-```ls
-@mod.valspec = ~>
-  values: (lc.cfg?values or []).map (v) ->
-    key: v.key or v, value: v.value or v, label: hitf!totext(v.label or v.value or v.key or v)
-```
+    @mod.valspec = ~>
+      values: (lc.cfg?values or []).map (v) ->
+        key: v.key or v, value: v.value or v, label: hitf!totext(v.label or v.value or v.key or v)
+
 
 ## 注意
 
