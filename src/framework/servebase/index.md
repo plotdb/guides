@@ -159,3 +159,10 @@ dev 模式下，以下類型的檔案修改不需要重啟 server：
 
     ./start base   # 使用 config/private/base.ls
     npm run dev    # 不帶參數，使用 config/private/secret.ls
+
+
+## 相關主題
+
+ - [Pug 開發](pug.md) — frontend pug 結構、mixin 來源、`@/` 路徑解析、fedep 整合
+ - [Nginx 設定](nginx.md) — 從 YAML 產生 nginx config、symlink 到 devsuite、port 慣例
+ - [資料庫初始化](database.md) — DB init 腳本流程、psql 執行注意事項
