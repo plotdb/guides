@@ -56,6 +56,7 @@
  - 靜態檔案從 `web/static/` serve；srcbuild 自動把 `web/src/pug/*.pug` 編譯到 `web/static/*.html`
  - API routes 必須在 `express.static` 之前掛載，否則會被靜態 middleware 攔截
  - `lsp()` 在 listen 之後呼叫，確保 port 正常後才開始 watch
+ - 若 server 啟動後 `web/static/` 沒有產出，可 `touch web/src/pug/index.pug` 手動觸發一次 build
 
 
 ## 目錄對應
