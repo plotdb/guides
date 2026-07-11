@@ -184,6 +184,64 @@ fedep 從 `node_modules` 複製套件到 `{root}/{模組名}/{版本}/`，並建
 與手動 `git tag` 相比，fedep 自動建立 GitHub release 並從 CHANGELOG.md 取得格式化的 release notes，且 release branch 提供乾淨的發布快照。
 
 
+## 眉角與常見陷阱
+
+
+### `dir` 欄位：複製的是內容，不是目錄本身
+
+設定 `"dir": "dist"` 時，fedep 複製的是 `dist/` 目錄**內的檔案**，而非連 `dist/` 資料夾一起複製。
+
+安裝後的結構：
+
+    # "dir": "dist" 的情況
+    web/static/assets/lib/bootstrap/main/
+      css/bootstrap.min.css    ← 直接在 main/ 下，無 dist/ 層
+      js/bootstrap.bundle.min.js
+
+    # 未設定 dir（複製整個套件）
+    web/static/assets/lib/bootstrap/main/
+      dist/css/bootstrap.min.css   ← 有 dist/ 層
+      dist/js/bootstrap.bundle.min.js
+      package.json
+      src/...
+
+因此 `+css` / `+script` 的 `path` 對應方式不同：
+
+    # 有 "dir": "dist"
+    +css([{name: "bootstrap", path: "css/bootstrap.min.css"}])
+
+    # 無 dir（複製整包）
+    +css([{name: "bootstrap", path: "dist/css/bootstrap.min.css"}])
+
+**建議做法**：使用 `dir` 時，把套件名稱搭配 `dir: "dist"` 一起設，只複製有用的 dist 檔，省空間且路徑直觀。
+
+
+### `fedep init` 會把後端套件也加進去
+
+`fedep init` 從 `package.json` 的 `dependencies` 互動式建立清單，但它不區分前端/後端套件，會把 `express`、`better-sqlite3`、`cheerio` 等 Node.js 後端套件也列進 `frontendDependencies`。
+
+執行完後必須手動刪除後端套件，只保留真正要複製到瀏覽器的前端庫：
+
+    # 不需要的（刪除）
+    "express", "better-sqlite3", "cheerio", "node-fetch"
+
+    # 需要的（保留）
+    { "name": "bootstrap", "dir": "dist" },
+    "ldview",
+    "@loadingio/ldquery"
+
+
+### `+script` / `+css` 的 path 預設值
+
+srcbuild 的 `+script`/`+css` mixin 省略 `path` 時預設為 `index.min.js` / `index.min.css`。多數套件有這個檔名，但 bootstrap 沒有，必須明確指定：
+
+    # 正確
+    +css([{name: "bootstrap", path: "css/bootstrap.min.css"}])
+
+    # 錯誤（bootstrap 無 index.min.css）
+    +css([{name: "bootstrap"}])
+
+
 ## fedep license
 
 依 `package.json` 的 `license` 欄位（或命令列參數）生成 LICENSE 檔案。
