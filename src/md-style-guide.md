@@ -33,9 +33,9 @@
 
 ## Code Block 規範
 
-- Markdown 中的 code block 使用四個空白的縮排表現
-- Code block 前後至少都要有一個空白行
-- 只在明確被要求時使用三個反引號格式
+ - Markdown 中的 code block 使用四個空白的縮排表現
+ - Code block 前後至少都要有一個空白行
+ - 只在明確被要求時使用三個反引號格式
 
 範例：
 
@@ -51,10 +51,8 @@
 
 避免使用三個反引號, 除非明確指示; 一般情況下無論語言, 都使用四格縮排.
 
-```javascript
-// 當明確要求使用時才採用三個反引號
-function complexFunction() {
-  return 'highlighted code';
-}
-```
+    // 當明確要求使用時才採用三個反引號
+    function complexFunction() {
+      return 'highlighted code';
+    }
 

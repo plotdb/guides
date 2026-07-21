@@ -69,6 +69,7 @@
 更新 `package.json` version 欄位後：
 
     git add CHANGELOG.md package.json && git commit -m "release vX.Y.Z"
+    git push   # 先推 master branch，再 publish
 
     # web 專案（無 dist 資料夾）
     npx fedep publish -g --skip-dist

@@ -25,6 +25,7 @@
 
 ## 前端依賴安裝
 
+
 ### package.json 設定
 
     "frontendDependencies": {
@@ -36,6 +37,7 @@
       ]
     }
 
+
 ### 安裝邏輯
 
 fedep 從 `node_modules` 複製套件到 `{root}/{模組名}/{版本}/`，並建立 `{root}/{模組名}/main` symlink 指向該版本。複製來源優先順序：
@@ -43,6 +45,7 @@ fedep 從 `node_modules` 複製套件到 `{root}/{模組名}/{版本}/`，並建
  - 若有 `dir` 欄位，複製套件內的指定子目錄
  - 否則若 `dist` 存在且有 `--use-dist` flag，複製 `dist/`
  - 否則複製整個套件
+
 
 ### 安裝後目錄結構
 
@@ -55,6 +58,7 @@ fedep 從 `node_modules` 複製套件到 `{root}/{模組名}/{版本}/`，並建
 
 `main` symlink 讓 `+script`/`+css` mixin 永遠用 `main/` 引用，不需隨版本升級改路徑。
 
+
 ### 模組物件欄位
 
 模組清單中的每個項目可以是字串（模組名稱）或物件；物件格式包含以下欄位：
@@ -65,6 +69,7 @@ fedep 從 `node_modules` 複製套件到 `{root}/{模組名}/{版本}/`，並建
  - `optional`：`true` 時找不到不報錯，即使不在 `optionalDependencies` 中
  - `browserify`：`true` 或 object，對模組跑 browserify 打包；若為 object，其內容作為 browserify 選項
  - `transpile`：需要 transpile 模組時加入，含 `files` 欄位（要 transpile 的檔案清單）
+
 
 ### 本地 repo 開發
 
@@ -77,6 +82,7 @@ fedep 從 `node_modules` 複製套件到 `{root}/{模組名}/{版本}/`，並建
     npx fedep -l "mod1:path-to-mod1;mod2:path-to-mod2"
 
 路徑支援 `~` 展開。
+
 
 ### 指令選項
 
@@ -124,6 +130,7 @@ fedep 從 `node_modules` 複製套件到 `{root}/{模組名}/{版本}/`，並建
     npx fedep publish -g release      # 同上（明確指定 branch 名）
     npx fedep publish -g --skip-dist  # web 專案無 dist 時用此 flag
 
+
 ### 完整流程
 
  1. 準備 work folder `.fedep/publish/`（同 npm publish 的合併邏輯）
@@ -138,12 +145,14 @@ fedep 從 `node_modules` 複製套件到 `{root}/{模組名}/{版本}/`，並建
     - `git add -f * && git commit -m "regen" && git push`
  7. 建立 GitHub release（`gh release create v{version} --target release --title {version} --notes-file -`）；release notes 從 CHANGELOG.md 解析後透過 stdin 傳入，若 CHANGELOG 無對應 section 改用 `--generate-notes`
 
+
 ### 前提條件
 
  - `package.json` 有 `version` 欄位（semver `x.y.z`）
  - `gh` CLI 已安裝並登入（`gh auth login`）
  - git remote `origin` 已設定
  - 若無 `--skip-dist`：`dist/` 資料夾存在
+
 
 ### CHANGELOG.md 格式
 
@@ -157,6 +166,7 @@ fedep 從 `node_modules` 複製套件到 `{root}/{模組名}/{版本}/`，並建
      - init release
 
 解析邏輯：找第一個包含版本號字串的行作為開始，收集後續行直到遇到下一個 `#+\s+v?\d+\.\d+\.\d+` 格式的標題，去掉頭尾空白行後作為 release notes。`package.json` 的 `version` 必須與 CHANGELOG.md 中對應 section 的版本號一致。
+
 
 ### web 專案推薦設定
 
@@ -172,6 +182,64 @@ fedep 從 `node_modules` 複製套件到 `{root}/{模組名}/{版本}/`，並建
     npx fedep publish -g --skip-dist
 
 與手動 `git tag` 相比，fedep 自動建立 GitHub release 並從 CHANGELOG.md 取得格式化的 release notes，且 release branch 提供乾淨的發布快照。
+
+
+## 眉角與常見陷阱
+
+
+### `dir` 欄位：複製的是內容，不是目錄本身
+
+設定 `"dir": "dist"` 時，fedep 複製的是 `dist/` 目錄**內的檔案**，而非連 `dist/` 資料夾一起複製。
+
+安裝後的結構：
+
+    # "dir": "dist" 的情況
+    web/static/assets/lib/bootstrap/main/
+      css/bootstrap.min.css    ← 直接在 main/ 下，無 dist/ 層
+      js/bootstrap.bundle.min.js
+
+    # 未設定 dir（複製整個套件）
+    web/static/assets/lib/bootstrap/main/
+      dist/css/bootstrap.min.css   ← 有 dist/ 層
+      dist/js/bootstrap.bundle.min.js
+      package.json
+      src/...
+
+因此 `+css` / `+script` 的 `path` 對應方式不同：
+
+    # 有 "dir": "dist"
+    +css([{name: "bootstrap", path: "css/bootstrap.min.css"}])
+
+    # 無 dir（複製整包）
+    +css([{name: "bootstrap", path: "dist/css/bootstrap.min.css"}])
+
+**建議做法**：使用 `dir` 時，把套件名稱搭配 `dir: "dist"` 一起設，只複製有用的 dist 檔，省空間且路徑直觀。
+
+
+### `fedep init` 會把後端套件也加進去
+
+`fedep init` 從 `package.json` 的 `dependencies` 互動式建立清單，但它不區分前端/後端套件，會把 `express`、`better-sqlite3`、`cheerio` 等 Node.js 後端套件也列進 `frontendDependencies`。
+
+執行完後必須手動刪除後端套件，只保留真正要複製到瀏覽器的前端庫：
+
+    # 不需要的（刪除）
+    "express", "better-sqlite3", "cheerio", "node-fetch"
+
+    # 需要的（保留）
+    { "name": "bootstrap", "dir": "dist" },
+    "ldview",
+    "@loadingio/ldquery"
+
+
+### `+script` / `+css` 的 path 預設值
+
+srcbuild 的 `+script`/`+css` mixin 省略 `path` 時預設為 `index.min.js` / `index.min.css`。多數套件有這個檔名，但 bootstrap 沒有，必須明確指定：
+
+    # 正確
+    +css([{name: "bootstrap", path: "css/bootstrap.min.css"}])
+
+    # 錯誤（bootstrap 無 index.min.css）
+    +css([{name: "bootstrap"}])
 
 
 ## fedep license

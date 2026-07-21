@@ -4,20 +4,21 @@
 
 原始碼：`makeform/blocks/radio/src/index.ls`
 
+
 ## 特性
 
-- `valdef`: `"@plotdb/form:valdef/choice"`
-- `valspec`: 回傳 `{values: [{key, label, value}]}`，label 已 `hitf!totext` 轉為純文字
-- Value 格式：純字串（選中的 key）
-- Other 選項：value 存為 plain string（非 `{other: {enabled}}`），是已知限制
+ - `valdef`: `"@plotdb/form:valdef/choice"`
+ - `valspec`: 回傳 `{values: [{key, label, value}]}`，label 已 `hitf!totext` 轉為純文字
+ - Value 格式：純字串（選中的 key）
+ - Other 選項：value 存為 plain string（非 `{other: {enabled}}`），是已知限制
+
 
 ## valspec
 
-```ls
-@mod.valspec = ~>
-  values: lc.values.map (v) ->
-    key: v.key or v, value: v.value or v, label: hitf!totext(v.label or v.value or v.key or v)
-```
+    @mod.valspec = ~>
+      values: lc.values.map (v) ->
+        key: v.key or v, value: v.value or v, label: hitf!totext(v.label or v.value or v.key or v)
+
 
 ## 注意
 
