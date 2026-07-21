@@ -17,7 +17,7 @@
  - `index.md` — 基本資訊與 quick guide 摘要
  - `spec.md` — 定義預計系統的規格與設計
  - `features.md` — 說明目前系統已有的機制與功能
- - `logs/` — 工作記錄，以 `yyyymmdd.md` 命名
+ - `logs/` — 工作記錄，以 `yyyymmdd-<brief>.md` 命名
 
 若 `spec.md` 或 `features.md` 內容較多，可分別延伸為 `spec/` 或 `features/` 資料夾，但需在對應的 md 檔中說明其結構。
 
