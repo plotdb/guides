@@ -3,3 +3,5 @@ node_modules
 .swp
 secret.*
 *.key
+/context/shared
+context/cached
