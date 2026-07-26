@@ -1,5 +1,10 @@
 # Change Logs
 
+## master
+
+ - rewrite cli.js init: add -g/--global mode, auto-update .gitignore, create context/index.json, fix/repair symlink handling
+
+
 ## v0.0.5
 
  - add context-project-guide.md
