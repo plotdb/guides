@@ -1,5 +1,10 @@
 # Change Logs
 
+## v0.1.1
+
+ - add tool-guide.md: node version management, n → volta migration
+
+
 ## v0.1.0
 
  - rewrite cli.js init: add -g/--global mode, auto-update .gitignore, create context/index.json, fix/repair symlink handling

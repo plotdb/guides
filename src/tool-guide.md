@@ -1,0 +1,28 @@
+# 工具使用指南
+
+
+## Node.js 版本管理
+
+過去使用 `n` 管理 Node.js 版本，現已改用 `volta`。
+
+`volta` 支援在專案層級固定 Node.js 版本（透過 `package.json` 的 `volta` 欄位），不同專案可各自使用不同版本，切換時自動生效，不需手動操作。
+
+安裝 volta：
+
+    curl https://get.volta.sh | bash
+
+安裝指定版本的 Node.js：
+
+    volta install node@22
+
+在專案中固定版本：
+
+    volta pin node@22
+
+執行後會在 `package.json` 加入：
+
+    "volta": {
+      "node": "22.x.x"
+    }
+
+注意：若舊專案文件中出現 `n <version>`（如 `n 21.7.1`），為舊的 `n` 指令用法，現在改用 `volta install node@<version>` 取代。
