@@ -1,5 +1,11 @@
 # Change Logs
 
+## v0.2.0
+
+ - init -g: use ~/.context/@plotdb/guides instead of npm global root; auto-clone if not found
+ - add npm run link to symlink current repo to ~/.context/@plotdb/guides
+
+
 ## v0.1.1
 
  - add tool-guide.md: node version management, n → volta migration
