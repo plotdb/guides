@@ -1,9 +1,12 @@
 #!/usr/bin/env node
 var fs = require('fs');
 var path = require('path');
+var os = require('os');
 var fsExtra = require('fs-extra');
 var yargs = require('yargs');
 var child_process = require('child_process');
+
+var CONTEXT_HOME = path.join(os.homedir(), '.context', '@plotdb', 'guides');
 
 var cmds = {};
 
@@ -25,18 +28,23 @@ cmds.init = {
     var sourceAbs, sourceDisplay;
 
     if (isGlobal) {
-      var globalRoot;
-      try {
-        globalRoot = child_process.execSync('npm root -g', {encoding: 'utf8'}).trim();
-      } catch(e) {
-        console.error('Failed to determine global npm root: ' + e.message);
-        process.exit(1);
-      }
-      sourceAbs = path.join(globalRoot, '@plotdb', 'guides', 'src');
-      sourceDisplay = sourceAbs;
+      sourceAbs = path.join(CONTEXT_HOME, 'src');
+      sourceDisplay = CONTEXT_HOME + '/src';
       if (!fs.existsSync(sourceAbs)) {
-        console.error('Global @plotdb/guides was not found.\n\nInstall it with:\n  npm install -g github:plotdb/guides');
-        process.exit(1);
+        if (!fs.existsSync(CONTEXT_HOME)) {
+          console.log('Cloning @plotdb/guides to ' + CONTEXT_HOME + ' ...');
+          fsExtra.ensureDirSync(path.dirname(CONTEXT_HOME));
+          try {
+            child_process.execSync('git clone https://github.com/plotdb/guides ' + CONTEXT_HOME, {stdio: 'inherit'});
+          } catch(e) {
+            console.error('Failed to clone @plotdb/guides: ' + e.message);
+            process.exit(1);
+          }
+        }
+        if (!fs.existsSync(sourceAbs)) {
+          console.error('Could not find src/ in ' + CONTEXT_HOME);
+          process.exit(1);
+        }
       }
     } else {
       sourceAbs = path.join(cwd, 'node_modules', '@plotdb', 'guides', 'src');

@@ -445,3 +445,21 @@
 
     # 正確 - 純讀取，不動原物件
     datasrc = config.mod?datasrc or \data
+
+---
+
+
+### 單行 `for` 會吃掉外層 `if` 的 `else`
+
+在單行 `if/else if/else` 鏈中，若 `if` 的 body 是 `for` 迴圈，`for` 會貪婪地吸走後續的 `else if`/`else`，使其變成迴圈內部的東西而非外層條件的分支。
+
+    # ✗ 錯誤 - else if 被 for 吃掉，不屬於外層 if
+    if Array.isArray v => for val in v => vals[val] = true
+    else if v.trim! => vals[v] = true
+
+    # ✓ 正確 - for 縮排後，else if 回到外層 if 的同層
+    if Array.isArray v =>
+      for val in v => vals[val] = true
+    else if v.trim! => vals[v] = true
+
+只要 `for`（或 `while`）不在 `=>` 之後的同一行結尾，就不會有這個問題。
