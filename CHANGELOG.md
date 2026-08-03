@@ -1,5 +1,19 @@
 # Change Logs
 
+## v0.3.0
+
+ - rename src/*.md with numeric prefixes for ordered reference (breaking: 舊檔名引用需更新)：
+   - `context-project-guide.md` → `1.context-project-guide.md`
+   - `fedev.md` → `2.fedev.md`
+   - `version-control.md` → `3.version-control.md`
+   - `md-style-guide.md` → `4.md-style-guide.md`
+   - `tool-guide.md` → `5.tool-guide.md`
+   - `docker-environment.md` → `6.docker-environment.md`
+   - `js-coding-guide.md` → `7.js-coding-guide.md`
+   - `stylus-style-guide.md` → `8.stylus-style-guide.md`
+   - `lsc-coding-guide.md` → `9.lsc-coding-guide.md`
+
+
 ## v0.2.0
 
  - init -g: use ~/.context/@plotdb/guides instead of npm global root; auto-clone if not found
