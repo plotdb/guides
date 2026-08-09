@@ -11,6 +11,26 @@
 BID 也可作為純識別字串（type tag）使用，不一定對應實際存在的 block 檔案。
 
 
+## Block 檔案格式
+
+block 定義檔是一個標準 HTML 片段（慣例為 `index.html`）：最外層一個 root 元素（通常是 `<div>`），
+內含畫面 HTML、`<style>` 與一個 `<script type="@plotdb/block">`（內容為 `module.exports = {pkg, init, ...}`）。
+
+    <div>
+      <!-- 畫面 HTML -->
+      <style>
+        /* 由 @plotdb/csscope 自動 scope, 不會外漏 */
+      </style>
+      <script type="@plotdb/block">
+        module.exports = { pkg: {...}, init: function(opt) {...} };
+      </script>
+    </div>
+
+ - `<style>` 會自動 scope；一般 selector 套用到 root 元素的「子孫」，要樣式 root 自身時用 `:scope` pseudo-class（csscope 會將 `:scope` 換成對應的 scope selector），例如 `:scope { display: flex }`
+ - `init` 與 `interface` / `destroy` 共用 `this`，可在 `init` 存狀態、`interface` 取用
+ - headless block（純邏輯、無 DOM）：attach 時不帶 `root` 即可
+
+
 ## Block 結構
 
     module.exports =
@@ -30,7 +50,7 @@ BID 也可作為純識別字串（type tag）使用，不一定對應實際存�
         # i18n    — i18n 實例（可監聽 languageChanged）
         # pubsub  — block 內部事件匯流排
         # manager — block manager（可載入其他 block）
-        # parent  — 父 block 的 interface（若有繼承）
+        # parent  — 父 block 的 factory 物件（若有繼承）；呼叫 parent.interface! 取得父層 API
 
 
 ## Block Manager
@@ -41,7 +61,10 @@ BID 也可作為純識別字串（type tag）使用，不一定對應實際存�
       .then (b) -> b.attach {root}; b.interface!
 
  - `manager.chain(other-mgr)` — fallback 到另一個 manager
- - block 的 `interface()` 方法回傳對外公開的 API 物件
+ - block 的 `interface()` 方法回傳對外公開的 API 物件；繼承時 instance 的 `interface()` 只回傳最末端（child）的 interface
+ - 建構 manager 時以 `registry` 函式將名稱對應到 URL：`type == 'block'` 時回傳 block 檔 URL，否則回傳 lib 依賴檔案 URL（如 `/assets/lib/<name>/<version>/<path>`）
+ - `manager.from(o, opt)` 是 get → create → attach 的捷徑，resolve 成 `{instance, interface}`；注意 `from` 不會轉傳 `data`，要帶 `data` 時走 `cls.create({data, root})`
+ - `cls.create({data, root})` 有帶 `root` 時會直接 attach；`data` 在 `init` 以 `opt.data` 取得，且沿繼承鏈共用
 
 
 ## Host Interface（hitf）

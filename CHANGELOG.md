@@ -1,5 +1,13 @@
 # Change Logs
 
+## master
+
+ - update @plotdb/block guide:
+   - add "Block 檔案格式" section: html-based definition, auto-scoped style with `:scope` for root, shared `this` across init/interface, headless mode
+   - fix `parent` description: it is the parent factory object; call `parent.interface!` to get the parent API
+   - expand manager notes: registry function, `from()` returns `{instance, interface}` and does not forward data, `create({data, root})` behavior
+
+
 ## v0.3.0
 
  - rename src/*.md with numeric prefixes for ordered reference (breaking: 舊檔名引用需更新)：
