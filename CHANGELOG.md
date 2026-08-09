@@ -2,6 +2,7 @@
 
 ## master
 
+ - update fedep guide: add "發布組合與安裝端效果" section — npm vs github release vs no-dist publish combinations and their consumer-side effects (`#master` vs `#release` / tag)
  - update @plotdb/block guide:
    - add "Block 檔案格式" section: html-based definition, auto-scoped style with `:scope` for root, shared `this` across init/interface, headless mode
    - fix `parent` description: it is the parent factory object; call `parent.interface!` to get the parent API

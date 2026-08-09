@@ -184,6 +184,32 @@ fedep 從 `node_modules` 複製套件到 `{root}/{模組名}/{版本}/`，並建
 與手動 `git tag` 相比，fedep 自動建立 GitHub release 並從 CHANGELOG.md 取得格式化的 release notes，且 release branch 提供乾淨的發布快照。
 
 
+## 發布組合與安裝端效果
+
+publish 的效果依「是否上 npm」與「是否有 dist」而不同。共通點：兩種模式都先在 `.fedep/publish/` 組出發布內容（`dist/` 內容攤平到根目錄、`main` / `browser` / `style` / `module` / `unpkg` / `bin` / `exports` 路徑欄位改寫、`files` 欄位移除），差別在這份內容送去哪裡。
+
+
+### 有 dist、上 npm（`fedep publish`）
+
+ - 發布內容推上 npm；安裝端 `npm install <name>`，unpkg 亦可直接引用（`unpkg.com/<name>/index.min.js`，因 dist 已攤平）
+ - repo 的 master 可以把 `dist/` 放進 `.gitignore`，發布內容與 repo 內容無關
+
+
+### 有 dist、不上 npm（`fedep publish -g`）
+
+ - 發布內容推到 `release` branch 並建 GitHub release；tag `vX.Y.Z` 指向 release branch
+ - 安裝端要裝 `github:<user>/<repo>#release`（或 `#vX.Y.Z`），拿到的內容等同 npm 發布版
+ - 注意：裝 `#master` 拿到的是原始 repo — 若 `dist/` 沒 commit 進 master 就沒有 build 產物，且 `package.json` 路徑欄位仍指向 `dist/`，通常無法直接使用。不上 npm 的專案請引導使用者裝 `#release` 或 tag，或把 dist commit 進 master
+
+
+### 無 dist（`--skip-dist`，web 專案或純源碼專案）
+
+ - 發布內容 = `files` 欄位列出的檔案 + README / CHANGELOG / package.json / LICENSE，目錄結構原樣，路徑欄位不改寫
+ - master 與 release branch 內容基本一致，安裝端裝 `#master` 也可用（如 `github:plotdb/guides#master`）
+ - 無 dist 專案也可上 npm：`fedep publish --skip-dist`
+ - 忘記 `--skip-dist` 時 fedep 會因 `dist/` 不存在直接結束，不會發布
+
+
 ## 眉角與常見陷阱
 
 
