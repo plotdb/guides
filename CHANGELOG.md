@@ -9,6 +9,7 @@
    - expand manager notes: registry function, `from()` returns `{instance, interface}` and does not forward data, `create({data, root})` behavior
  - update preference-and-hints folder for frontend-techstacks hint
  - try to add subfolder rules in context-project-guide
+ - context-project-guide: generalize subfolder rules — status subfolders (done/hold/drop) and year-based archive apply to all subdirs (logs/, tasks/, ...); order is status first, then year (e.g. tasks/done/2025/0101-foo.md)
 
 
 ## v0.3.0
