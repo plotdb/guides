@@ -7,6 +7,8 @@
    - add "Block 檔案格式" section: html-based definition, auto-scoped style with `:scope` for root, shared `this` across init/interface, headless mode
    - fix `parent` description: it is the parent factory object; call `parent.interface!` to get the parent API
    - expand manager notes: registry function, `from()` returns `{instance, interface}` and does not forward data, `create({data, root})` behavior
+ - update preference-and-hints folder for frontend-techstacks hint
+ - try to add subfolder rules in context-project-guide
 
 
 ## v0.3.0
