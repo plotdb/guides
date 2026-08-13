@@ -1,6 +1,6 @@
 # Change Logs
 
-## master
+## v0.3.1
 
  - update fedep guide: add "發布組合與安裝端效果" section — npm vs github release vs no-dist publish combinations and their consumer-side effects (`#master` vs `#release` / tag)
  - update @plotdb/block guide:
