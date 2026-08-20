@@ -1,5 +1,14 @@
 # Change Logs
 
+## master
+
+ - 新增 `framework/ldcover` 指南：get / set / cancel 的取值模式（`set` 沒有對應事件，
+   取值只能 await `get()`）、`data` 事件傳入資料、`resident` / `inPlace` / `container`
+   的 DOM 生命週期與判斷準則（疊加由 `autoZ` / `zmgr` 處理，`inPlace: false` 是給
+   root 被祖先困住的情況，巢狀 cover 為常見案例）、z-index 管理、常用選項與事件
+ - servebase: 更新 stop/restart, 補 log / service / cachestamp（見 76ee429，補記）
+
+
 ## v0.3.1
 
  - update fedep guide: add "發布組合與安裝端效果" section — npm vs github release vs no-dist publish combinations and their consumer-side effects (`#master` vs `#release` / tag)
