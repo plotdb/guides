@@ -1,6 +1,6 @@
 # Change Logs
 
-## master
+## v0.3.2
 
  - 新增 `framework/ldcover` 指南：get / set / cancel 的取值模式（`set` 沒有對應事件，
    取值只能 await `get()`）、`data` 事件傳入資料、`resident` / `inPlace` / `container`
