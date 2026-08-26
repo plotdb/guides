@@ -1,5 +1,13 @@
 # Change Logs
 
+## v0.3.3
+
+ - ldview: 補「巢狀 ld-each 的 ctx / ctxs」一節 —— `list` 與 item view 的 `ctxs` 差一層
+   （`list` 的 `ctx` 是外層那筆、`ctxs.0` 是再外層；item view 的 `ctx` 是本筆、`ctxs.0`
+   才是外層）、`key` 收到的是資料項本身、外層資料建議在 `list` 算好塞進項目；
+   另補兩個陷阱：`list` 的例外不在 `_render` 的 try/catch 內（會拋穿 `init()`／`render()`
+   導致整個 view 初始化中斷），以及 ld-each 定義層級放錯時不會報錯、範本會原封不動留在畫面上
+
 ## v0.3.2
 
  - 新增 `framework/ldcover` 指南：get / set / cancel 的取值模式（`set` 沒有對應事件，
