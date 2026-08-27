@@ -8,6 +8,7 @@
  - hook：事件時機、執行環境、設定合併。詳見 [hooks.md](hooks.md)
  - skill：目錄結構、命名與載入限制。詳見 [skills.md](skills.md)
  - 設定與環境變數：載入時機與查證方式。詳見 [configuration.md](configuration.md)
+ - 瀏覽器自動化：哪些行為測得到、哪些測不到。詳見 [browser-automation.md](browser-automation.md)
 
 
 ## 查證方式

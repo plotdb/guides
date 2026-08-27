@@ -2,6 +2,21 @@
 
 ## master
 
+ - preference-and-hints/frontend: 新增前端平台陷阱分類，與談元件選用的 `frontend-techstacks/`
+   分開 —— 這邊記平台本身怎麼運作
+ - preference-and-hints/frontend/scrolling: 新增捲動與指標裝置筆記 —— 攔截捲動有三個互相
+   獨立的機制 ( `preventDefault`、原生 overflow、`overscroll-behavior` )，其中最容易漏掉的是
+   `overscroll-behavior`：它作用於 scroll container，而 `overflow: hidden` 的元素也算，
+   所以一個沒有捲軸、內容也沒溢出的元素仍可攔住捲動不讓頁面拿到，且過程中沒有任何
+   `preventDefault` 參與；另記 swipe-back 只住在水平軸 ( 用 `overscroll-behavior-x` 就夠，
+   整條 `contain` 會連帶扣住頁面的垂直捲動 )，以及滾輪 tick 與觸控板手勢因 scroll latching
+   而表現可能不同，只用滑鼠測過不足以宣告沒問題
+ - tools/claude-code/browser-automation: 新增瀏覽器自動化筆記 —— `computer` 的 `scroll`
+   動作會直接讓頁面捲動，不論座標下的元素有沒有攔截設定，因此測不出任何跟捲動歸屬有關的
+   問題；判斷探針是否有效的方法是做對照組 ( 改掉待測設定再跑一次，結果相同即為無效探針 )；
+   合成事件不觸發原生捲動，所以能看的是 `defaultPrevented` 與 computed style 而非
+   `window.scrollY`；觸控板 latching 則無法程式化重現，應說明測不到而非拿滾輪結果代替
+
  - lsc-coding-guide: 補「`do` 的縮排區塊沒有結束標記」一節 —— `f do` 後面同一層的
    鏈式呼叫會被吃進最後一個屬性裡 ( `devices: ['sheet'].then(...)` )，**編譯完全成功**、
    執行時才在意想不到的地方報錯；`{ … } .then` 是可行的替代，但 `}` 後面**必須有空白**
