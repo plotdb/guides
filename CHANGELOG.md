@@ -1,5 +1,21 @@
 # Change Logs
 
+## master
+
+ - tools: 新增 `src/tools/` —— 記錄工具行為上的陷阱與非顯而易見的限制，
+   與教學型的指南分開
+ - tools/terminal: 新增終端機控制筆記 —— OSC 標題序列（`\033]0;`）與 iTerm2 專屬的
+   分頁顏色序列（`\033]6;1;bg;`，吃全 RGB 而非 ANSI 十六色，且非作用中分頁會被調暗，
+   選色要據此判斷）；另記 tty 存取：沒有 controlling terminal 時 `/dev/tty` 開不起來，
+   而 `test -w /dev/tty` 會回 true（只檢查權限位元，是假訊號），可靠作法是往上爬
+   process tree 找有 tty 的祖先，並注意 `2>/dev/null` 要寫在重導向之前才抑制得了
+ - tools/claude-code: 新增 hook / skill / 設定筆記 —— hook 沒有 controlling terminal
+   且 stdin 是事件 JSON、`settings.json` 改完要 `/hooks` 重載而腳本改了立即生效、
+   跑在熱路徑上的 `PostToolUse` 要加 `async`、「一輪一次」的事件無法涵蓋中途狀態變化；
+   skill 目錄不能巢狀（只掃一層）但支援 symlink，名稱來自 frontmatter 且會被消毒；
+   環境變數只在啟動時讀取，且一個開關可能關掉整條路徑（關閉標題自動更新會連帶讓
+   `/rename` 也改不了標題）
+
 ## v0.3.4
 
  - lsc-coding-guide: 補「雙引號字串裡的 `#name` 是插值」一節 —— `#` 後直接接合法識別字
