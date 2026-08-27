@@ -47,7 +47,7 @@ servebase 專案的 `frontend/<name>/src/pug/` 目錄由 `@plotdb/srcbuild` 監�
 srcbuild pug plugin 把 `@/foo` 解析為 `require.resolve("foo", { paths: [base] })`，其中 `base` 為 `frontend/<name>` 目錄。Node.js module resolution 會向上追溯到 root `node_modules/`，因此 `frontend/<name>/` 下不需要獨立建立 `node_modules`。
 
 
-## 前端依賴（fedep）
+## 前端依賴 (fedep)
 
 `frontend/<name>/package.json` 設定 `frontendDependencies`，執行 fedep 時使用 root 的 `node_modules`：
 
@@ -59,6 +59,6 @@ srcbuild pug plugin 把 `@/foo` 解析為 `require.resolve("foo", { paths: [base
 
 ## 套件 `dir` 欄位
 
-`@servebase/*` 系列套件需指定 `dir: "dist"`，否則 fedep 會複製整個套件目錄（包含 src）：
+`@servebase/*` 系列套件需指定 `dir: "dist"`，否則 fedep 會複製整個套件目錄 (包含 src)：
 
     { "name": "@servebase/auth", "dir": "dist" }

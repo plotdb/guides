@@ -5,16 +5,16 @@
 
 ## 使用方式
 
-### CLI 模式（純前端，無自訂 API）
+### CLI 模式 (純前端，無自訂 API)
 
     npx server -r web -o .
 
-`-r web` 以 `web/` 為根目錄，`-o .` 監聽 `.`（專案根目錄）的原始碼變動。
+`-r web` 以 `web/` 為根目錄，`-o .` 監聽 `.` (專案根目錄) 的原始碼變動。
 
 
-### Programmatic 整合模式（Express + 自訂 API）
+### Programmatic 整合模式 (Express + 自訂 API)
 
-當專案需要自訂 API（如 `/api/*`），用 `srcbuild.lsp()` 與 Express 合併成單一 server。
+當專案需要自訂 API (如 `/api/*`)，用 `srcbuild.lsp()` 與 Express 合併成單一 server。
 
 `server.ls`：
 
@@ -70,7 +70,7 @@ Pug 中的 inline 區塊由 filter 處理：
  - `:stylus` → Stylus 編譯後 minify，嵌入 `<style>`
 
 
-## lib.pug mixins（自動注入）
+## lib.pug mixins (自動注入)
 
 srcbuild 在每個 Pug 編譯時自動插入 `lib.pug`，提供以下 mixin：
 
@@ -102,14 +102,14 @@ srcbuild 在每個 Pug 編譯時自動插入 `lib.pug`，提供以下 mixin：
 
 ## Pug 編譯細節
 
- - `@/` 前綴 → 從 `base`（專案根）resolve
- - `@static/` 前綴 → 從 `desdir`（static/）resolve
- - 檔案頂端有 `//- module` → 跳過（純 mixin 檔，不輸出 HTML）
+ - `@/` 前綴 → 從 `base` (專案根) resolve
+ - `@static/` 前綴 → 從 `desdir` (static/) resolve
+ - 檔案頂端有 `//- module` → 跳過 (純 mixin 檔，不輸出 HTML)
  - 檔案頂端有 `//- view` → 只輸出 view JS，不輸出 HTML
 
 
 ## 重要設計
 
  - Pug inline `include:lsc index.ls` 中的 JS 是編譯時處理，不是執行時；適合放頁面初始化邏輯
- - `<script type="module">` 中的 `include:lsc` 支援 ES module 語法（`import` 等）
+ - `<script type="module">` 中的 `include:lsc` 支援 ES module 語法 (`import` 等)
  - `+script` 產生的 script 標籤預設加 `defer`；需要 `async` 可在 object 中加 `async: true`
