@@ -2,6 +2,7 @@
 
 ## master
 
+ - version-control: 補 `a.c.p` 縮寫說明 —— 即 add + commit + push（`a.c` 則只到 commit）
  - tools: 新增 `src/tools/` —— 記錄工具行為上的陷阱與非顯而易見的限制，
    與教學型的指南分開
  - tools/terminal: 新增終端機控制筆記 —— OSC 標題序列（`\033]0;`）與 iTerm2 專屬的
