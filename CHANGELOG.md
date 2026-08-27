@@ -1,6 +1,6 @@
 # Change Logs
 
-## master
+## v0.3.5
 
  - preference-and-hints/frontend: 新增前端平台陷阱分類，與談元件選用的 `frontend-techstacks/`
    分開 —— 這邊記平台本身怎麼運作
