@@ -9,8 +9,8 @@
 
  - `valdef`: `"@plotdb/form:valdef/choice"`
  - `valspec`: 回傳 `{values: [{key, label, value}]}`，label 已 `hitf!totext` 轉為純文字
- - Value 格式：純字串 (選中的 key)
- - Other 選項：value 存為 plain string (非 `{other: {enabled}}`)，是已知限制
+ - Value 格式：純字串 ( 選中的 key )
+ - Other 選項：value 存為 plain string ( 非 `{other: {enabled}}` )，是已知限制
 
 
 ## valspec

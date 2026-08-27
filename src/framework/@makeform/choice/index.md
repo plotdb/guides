@@ -22,4 +22,4 @@
 
 ## 注意
 
-Choice 的 value 格式與 checkbox 相同 (`{list, other}`)，`choice opset` 的 convert() 可正確處理。
+Choice 的 value 格式與 checkbox 相同 ( `{list, other}` )，`choice opset` 的 convert() 可正確處理。

@@ -34,7 +34,7 @@
     // 動態覆寫這次呼叫的延遲
     func.delay(300)()
 
-    // 取消單次呼叫 (每次 func() 返回的 Promise)
+    // 取消單次呼叫 ( 每次 func() 返回的 Promise )
     const p = func()
     p.cancel()
 
@@ -55,7 +55,7 @@
  - `debounce(fn, delay?)` / `debounce(delay, fn)` — 建立防抖函數
  - `debounce(delay)` — 純計時器，返回 Promise
  - `deb.clear()` — 清除所有待執行呼叫
- - `deb.delay(ms)` — 臨時設定延遲，返回 deb 本身 (可鏈式)
+ - `deb.delay(ms)` — 臨時設定延遲，返回 deb 本身 ( 可鏈式 )
  - `deb()` — 呼叫防抖函數，返回 Promise
  - `deb().now()` — 立即執行
  - `deb().cancel()` — 取消此次呼叫

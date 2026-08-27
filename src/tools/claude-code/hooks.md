@@ -24,7 +24,7 @@ Hook 的標準輸入是事件的 JSON 資料。任何預期從 stdin 讀取終�
  - `UserPromptSubmit`：使用者送出訊息時，一輪一次
  - `PostToolUse`：每次工具執行後，一輪多次
  - `Notification`：通知事件，可用 matcher 篩選，例如 `permission_prompt`
- - `Stop`：正常結束時。失敗 (例如額度用盡) 走 `StopFailure`，是不同事件
+ - `Stop`：正常結束時。失敗 ( 例如額度用盡 ) 走 `StopFailure`，是不同事件
 
 設計狀態指示這類功能時，要注意「一輪一次」的事件無法涵蓋中途的狀態變化。
 例如權限提示出現後改成等待狀態，若只靠 `UserPromptSubmit` 設定執行中狀態，

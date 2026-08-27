@@ -12,12 +12,12 @@
  - Other 選項：用 `{other: {enabled, text}}` 格式
 
 
-## Value 格式 (`content()` 回傳)
+## Value 格式 ( `content()` 回傳 )
 
-`content()` 依 list items 格式回傳不同型別 (backward compat)：
+`content()` 依 list items 格式回傳不同型別 ( backward compat )：
 
- - Items 全是 string (舊格式) → 回傳 flat array `[...keys, other_text?]`
- - Items 有 `key` 或 `label` 的物件 (新格式) → 回傳 `{list: [keys], other: {enabled, text}}`，可直接餵給 choice opset
+ - Items 全是 string ( 舊格式 ) → 回傳 flat array `[...keys, other_text?]`
+ - Items 有 `key` 或 `label` 的物件 ( 新格式 ) → 回傳 `{list: [keys], other: {enabled, text}}`，可直接餵給 choice opset
 
 
 ## valspec

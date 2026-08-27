@@ -16,14 +16,14 @@
 
 ## 與 bootstrap 的關係
 
-執行期不需 bootstrap。`bootstrap` 只在 devDependencies (demo 與 build 用)，dist 產物完全
+執行期不需 bootstrap。`bootstrap` 只在 devDependencies ( demo 與 build 用 )，dist 產物完全
 自包含，所有樣式都是 `ldnotify-*` class，可直接用於任何框架的專案。CSS 中唯一的 `.alert`
 規則只有在你主動把 `className` 設成 bootstrap 的 class 時才會用到。
 
 
 ## 接入慣例
 
- - CDN 載入 (發佈時檔案在套件根目錄，不在 `dist/`)：
+ - CDN 載入 ( 發佈時檔案在套件根目錄，不在 `dist/` )：
 
         https://cdn.jsdelivr.net/npm/ldnotify@0.0.6/index.min.js
         https://cdn.jsdelivr.net/npm/ldnotify@0.0.6/index.min.css
@@ -33,5 +33,5 @@
 
 ## 已知限制
 
- - 顯示時間是 instance 層級 (建構時 `delay`)，`send` 不支援單次覆寫；要不同時間可另開 instance。
+ - 顯示時間是 instance 層級 ( 建構時 `delay` )，`send` 不支援單次覆寫；要不同時間可另開 instance。
  - toast 預設 `pointer-events: none`，只能自動消失，不能點擊關閉。

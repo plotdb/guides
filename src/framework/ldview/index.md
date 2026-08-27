@@ -48,18 +48,18 @@ Headless、logic-less 的 HTML 模板引擎，透過 `ld` 屬性做 JS Selector 
 ## Handler 參數
 
  - `node`：當前 DOM 節點
- - `names`：節點上所有 ld 名稱 (空格分隔陣列)
+ - `names`：節點上所有 ld 名稱 ( 空格分隔陣列 )
  - `name`：本次匹配的 handler 名稱
  - `idx`：節點索引
  - `local`：節點生命週期內的本地資料存儲
- - `ctx`：view 層級的上下文資料 (ld-each 的 item view 中即為該筆資料)
+ - `ctx`：view 層級的上下文資料 ( ld-each 的 item view 中即為該筆資料 )
  - `data`：ld-each 節點綁定的資料項
- - `evt`：事件物件 (action handler)
- - `ctxs`：父層 view 的上下文列表，由內而外排序 (巢狀 ld-each 請見下方「巢狀 ld-each 的 ctx / ctxs」)
+ - `evt`：事件物件 ( action handler )
+ - `ctxs`：父層 view 的上下文列表，由內而外排序 ( 巢狀 ld-each 請見下方「巢狀 ld-each 的 ctx / ctxs」 )
  - `views`：view 鏈，`views[0]` 為當前 view
 
 
-## 循環渲染 (ld-each)
+## 循環渲染 ( ld-each )
 
     .shelf: div(ld-each="book")
       .name(ld="name")
@@ -80,7 +80,7 @@ Headless、logic-less 的 HTML 模板引擎，透過 `ld` 屬性做 JS Selector 
       }
     })
 
-ld-each 的 `view` 欄位支援所有一般 view 設定 (init、handler、text、action…)。
+ld-each 的 `view` 欄位支援所有一般 view 設定 ( init、handler、text、action… )。
 
 ld-each 定義的位置：與一般 handler 相同，放在該節點所屬 view 的 `handler` 下。若要巢狀，
 就放進外層 ld-each 的 `view.handler` 裡：
@@ -105,30 +105,30 @@ ld-each 定義的位置：與一般 handler 相同，放在該節點所屬 view 
 
 `ctx` 與 `ctxs` 的值取決於「函式屬於哪一層 view」，這是巢狀時最容易踩錯的地方：
 
- - 在 **`list`** (ld-each 的容器層，屬於外層 view)：
-   `ctx` = **外層那一筆**資料，`ctxs` = 更外層的 context 陣列 (`ctxs.0` 是外層的外層)
- - 在 **`view` 內的 handler / text** (每一筆的 item view)：
-   `ctx` = **本筆**資料，`ctxs` = `[外層那筆, 再外層那筆, ...]` (`ctxs.0` 是外層)
- - `key` 不吃 context：它收到的是**該筆資料本身** (`key: -> it.id`)
+ - 在 **`list`** ( ld-each 的容器層，屬於外層 view )：
+   `ctx` = **外層那一筆**資料，`ctxs` = 更外層的 context 陣列 ( `ctxs.0` 是外層的外層 )
+ - 在 **`view` 內的 handler / text** ( 每一筆的 item view )：
+   `ctx` = **本筆**資料，`ctxs` = `[外層那筆, 再外層那筆, ...]` ( `ctxs.0` 是外層 )
+ - `key` 不吃 context：它收到的是**該筆資料本身** ( `key: -> it.id` )
 
 以上面的三層為例：
 
     handler: judge:
       # 這裡是 option 這層 view 的容器函式：
-      #   ctx    = option (外層那筆)
-      #   ctxs.0 = project (再外層)
+      #   ctx    = option ( 外層那筆 )
+      #   ctxs.0 = project ( 再外層 )
       list: ({ctx, ctxs}) ~>
         [opt, prj] = [ctx, ctxs.0]
         ...
       key: -> it.key                    # 參數是該筆資料，不是 {ctx, ctxs}
       view: text: name: ({ctx, ctxs}) ~>
         # 這裡是 judge item view：
-        #   ctx    = judge (本筆)
+        #   ctx    = judge ( 本筆 )
         #   ctxs   = [option, project, ...]
         ctx.name
 
 換句話說，**同一個 `ctxs.0` 在 `list` 裡與在 `view` 裡差一層**。若在 `list` 裡誤用
-`ctxs.0` 當外層資料，拿到的會是更外層的東西 (或 `undefined`)，清單就會整個空掉。
+`ctxs.0` 當外層資料，拿到的會是更外層的東西 ( 或 `undefined` )，清單就會整個空掉。
 
 需要外層資料做後續計算時，建議在 `list` 就把它算好塞進回傳的項目裡，item view 只負責顯示，
 可避免再去追 `ctxs` 的層數：
@@ -142,10 +142,10 @@ ld-each 定義的位置：與一般 handler 相同，放在該節點所屬 view 
 
 `init()` 與 `render()` 走的是同一套 `_prerender`，都會呼叫 `procEach` → `list`，因此 `list`
 可能在資料尚未載入、外層 context 還是 `null` 時就被呼叫到；context 鏈的最尾端本來就常是 `null`
-(root view 沒給 `ctx`，往下傳就是 `[null]`)。
+( root view 沒給 `ctx`，往下傳就是 `[null]` )。
 
-要特別小心的是：一般 handler / text 的例外會被 `_render` 的 try/catch 接住 (印出
-`[ldview] failed when rendering ...` 後才 rethrow)，但 **`list` 的例外不在那個 try/catch 內**，
+要特別小心的是：一般 handler / text 的例外會被 `_render` 的 try/catch 接住 ( 印出
+`[ldview] failed when rendering ...` 後才 rethrow )，但 **`list` 的例外不在那個 try/catch 內**，
 會同步往外拋穿 `procEach` 與 `init()`／`render()`——結果是整個 view 初始化中斷，畫面整片沒出來，
 而不只是該欄位空白。務必先擋掉：
 
@@ -156,12 +156,12 @@ ld-each 定義的位置：與一般 handler 相同，放在該節點所屬 view 
 
 ### 定義層級放錯不會報錯
 
-`update` 掃到 `ld-each` 節點時，若該 view 的 `handler` 沒有同名項目就直接略過 (也不會把節點換成
-comment proxy)。症狀是**範本原封不動留在畫面上**、沒有任何錯誤訊息——巢狀時若把 `judge` 誤放在
+`update` 掃到 `ld-each` 節點時，若該 view 的 `handler` 沒有同名項目就直接略過 ( 也不會把節點換成
+comment proxy )。症狀是**範本原封不動留在畫面上**、沒有任何錯誤訊息——巢狀時若把 `judge` 誤放在
 外層 `handler` 而不是 `option` 的 `view.handler` 裡，就會看到這個現象。
 
 想確認實際拿到什麼，直接把整包參數存到 `window` 觀察最快
-(`console.log` 在多次 render 下會被洗版)：
+( `console.log` 在多次 render 下會被洗版 )：
 
     list: (o) ~>
       window.__dbg = (window.__dbg or []) ++ [o]
@@ -174,7 +174,7 @@ comment proxy)。症狀是**範本原封不動留在畫面上**、沒有任何�
     view.render({name: 'book', key: [key1, key2]})    // 只更新特定 key 的 ld-each 項
 
 
-## 作用域隔離 (ld-scope)
+## 作用域隔離 ( ld-scope )
 
 防止父 view 選取到子 view 內的元素：
 
@@ -188,7 +188,7 @@ comment proxy)。症狀是**範本原封不動留在畫面上**、沒有任何�
       div(ld="name")
 
 
-## 前綴 (prefix) 與混合視圖
+## 前綴 ( prefix ) 與混合視圖
 
 需要混合多個 view 而不用 ld-scope 隔離時，用 `naked-scope` + `prefix()` 函數：
 
@@ -229,9 +229,9 @@ comment proxy)。症狀是**範本原封不動留在畫面上**、沒有任何�
  - `view.ctx(value?)`：取得或設置 context
  - `view.on(event, cb)`：監聽 view 事件
  - `view.fire(event, ...args)`：觸發 view 事件
- - `view.bindEachNode({container, name, node, idx})`：手動加入 ld-each 節點 (不更新資料)
+ - `view.bindEachNode({container, name, node, idx})`：手動加入 ld-each 節點 ( 不更新資料 )
  - `view.unbindEachNode({container, name, node?, idx?})`：手動移除 ld-each 節點
- - `ldview.merge(a, b, ...)`：合併 config 物件 (靜態方法)
+ - `ldview.merge(a, b, ...)`：合併 config 物件 ( 靜態方法 )
 
 
 ## 設定選項速查
@@ -240,6 +240,6 @@ comment proxy)。症狀是**範本原封不動留在畫面上**、沒有任何�
  - `handler/init/text/style/attr/action`：各類型 handler
  - `ctx`：初始上下文資料
  - `prefix`：配合 naked-scope 使用的前綴名稱
- - `global`：`true` 時改用 `pd`/`pd-each` (跨 ld-scope 存取)
+ - `global`：`true` 時改用 `pd`/`pd-each` ( 跨 ld-scope 存取 )
  - `initRender`：建立後自動 render，預設 `true`
  - `template`：遞歸/嵌套 view 用的範本 DOM
