@@ -1,5 +1,14 @@
 # Change Logs
 
+## master
+
+ - preference-and-hints: `frontend-techstacks/` 移入 `frontend/techstacks/`，與同層的
+   `frontend/scrolling.md` 對齊 —— 前端相關的筆記收在同一個分類底下，不再有兩種命名並存
+ - preference-and-hints: 補 `index.md` —— `framework/` 與 `tools/` 都有分類入口，
+   這裡原本沒有；順帶寫下與那兩者的分界 ( `framework/` 記套件怎麼用、這裡記何時該用，
+   `tools/` 記開發用的外部工具、這裡記寫進產品裡的東西 )
+
+
 ## v0.3.5
 
  - preference-and-hints/frontend: 新增前端平台陷阱分類，與談元件選用的 `frontend-techstacks/`

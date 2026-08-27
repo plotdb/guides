@@ -3,7 +3,7 @@
 超輕量 toast 通知。固定於畫面上方置中，多則往下堆疊，預設 3 秒自動淡出。
 
 概覽與選用原則見 [index.md](index.md)。同屬 loading.io 家族，相關前端工具見
-[../../framework/@loadingio/index.md](../../framework/@loadingio/index.md)。
+[../../../framework/@loadingio/index.md](../../../framework/@loadingio/index.md)。
 
 
 ## 用法

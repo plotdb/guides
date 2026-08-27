@@ -5,7 +5,7 @@ cover / 對話框元件。底層是 cover ( 遮罩 + 置中容器 + 進出動畫
 `alert` / `confirm` / `prompt` 的替代 ( 原生對話框會被 headless / 自動化擋住，也無法套用站台樣式 )。
 
 概覽與選用原則見 [index.md](index.md)。同屬 loading.io 家族，相關前端工具見
-[../../framework/@loadingio/index.md](../../framework/@loadingio/index.md)。
+[../../../framework/@loadingio/index.md](../../../framework/@loadingio/index.md)。
 
 
 ## 對話框 helper
