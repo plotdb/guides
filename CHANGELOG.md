@@ -1,5 +1,14 @@
 # Change Logs
 
+## v0.3.4
+
+ - lsc-coding-guide: 補「雙引號字串裡的 `#name` 是插值」一節 —— `#` 後直接接合法識別字
+   也會插值（`#aaa` / `#eee` / `#fff` 會炸成頂層 ReferenceError，`#999`、`#2b6cb0` 這類
+   數字開頭則正常，容易誤判成安全），失敗形式是整個模組不執行、畫面全白而 console 可能
+   沒訊息；解法是 `\#` 跳脫或改用單引號 / `'''` heredoc
+ - lsc-coding-guide: 補單項 `*` list 會塌成物件的陷阱（見 4b4bd79，補記）
+ - servebase: 補 `npm run ping` 與多 agent 協作流程（見 3afdaf5，補記）
+
 ## v0.3.3
 
  - ldview: 補「巢狀 ld-each 的 ctx / ctxs」一節 —— `list` 與 item view 的 `ctxs` 差一層
