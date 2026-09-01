@@ -1,6 +1,6 @@
 # Change Logs
 
-## master
+## v0.3.6
 
  - context-project-guide: 新增 `ref/` —— 討論串、腦力激盪、外部建議、被取代的舊 spec,
    `logs/` 與 `tasks/` 兩邊都不是, 之前沒有地方放。判準是有沒有時間軸:log 記「某天做了
