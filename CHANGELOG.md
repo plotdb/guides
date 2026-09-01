@@ -1,6 +1,6 @@
 # Change Logs
 
-## master
+## v0.3.8
 
  - version-control: 新增「Tag 命名」—— fedep 1.8.0 起 `publish -g` 會打兩個 tag,
    `dist/vX.Y.Z` 指 release branch 上的產物, `src/vX.Y.Z` 指產生它的 source commit。
