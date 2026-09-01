@@ -2,6 +2,15 @@
 
 ## master
 
+ - context-project-guide: 新增 `ref/` —— 討論串、腦力激盪、外部建議、被取代的舊 spec,
+   `logs/` 與 `tasks/` 兩邊都不是, 之前沒有地方放。判準是有沒有時間軸:log 記「某天做了
+   什麼」有前後順序, 用狀態與年份分類; ref 沒有這條軸, 屬於它所描述的主題。因此不要在
+   `logs/` 底下開 `brainstorm/` 或 `draft/` —— 那會讓狀態 ( todo/done/hold/drop ) 與種類
+   混在同一層, 看到 `logs/brainstorm/foo.md` 答不出它做完了沒。命名預設
+   `yyyymmdd-<name>.md`, 因為 ref 是只會愈長愈大的堆, 手工維護的目錄清單一定會過期,
+   而過期的清單比沒有清單更糟; 檔名帶日期則讓目錄列表自己就是索引。逐檔唯一要做的是
+   在開頭註明已失效與現行權威在哪
+
  - preference-and-hints: `frontend-techstacks/` 移入 `frontend/techstacks/`，與同層的
    `frontend/scrolling.md` 對齊 —— 前端相關的筆記收在同一個分類底下，不再有兩種命名並存
  - preference-and-hints: 補 `index.md` —— `framework/` 與 `tools/` 都有分類入口，
