@@ -1,5 +1,25 @@
 # Change Logs
 
+## master
+
+ - version-control: 新增「Tag 命名」—— fedep 1.8.0 起 `publish -g` 會打兩個 tag,
+   `dist/vX.Y.Z` 指 release branch 上的產物, `src/vX.Y.Z` 指產生它的 source commit。
+   兩側都加前綴而不是只加新的那個: 若只有 source 加 `src/`、release 維持裸名, 同一個
+   repo 裡就會有 `v1.2.3` 是產物、`v1.2.4` 是原始碼, 名字本身分不出來。裸 `vX.Y.Z`
+   的解讀方式也一併寫明, 判準是這個 repo 有沒有 release branch —— 有的話該 tag 是
+   1.8.0 以前留下的、指向產物; 沒有的話這個 repo 只有一側, 裸名就是對的名字 ( 只上
+   npm 的模組, 或把產物直接 commit 進 source branch 的模組 )。因此 `fedep publish`
+   走 npm 那條路徑不打 tag
+ - version-control: 方式 A 補上完整流程與適用情境 —— 它是無 release branch 專用的
+   裸 tag 路徑。release notes 改成把 CHANGELOG section 接給 `gh`, 不要在網頁 UI 上貼:
+   網頁表單送出的內容會帶 `\r\n` 換行。另註明 npm 與 GitHub 兩半要一起做完, 只做一半
+   沒有任何提示 —— fedep 自己就有七個版本上了 npm 卻沒有 tag 與 release
+ - version-control: 查最後一次 tag 的指令要指定查哪一側, 否則前綴會混進 `-v:refname`
+   的排序
+ - fedep: 發布流程補上第 8 步 ( 打 `src/` tag ), 安裝端說明改用 `#dist/vX.Y.Z`,
+   並註明 committish 含斜線不影響 npm 解析
+
+
 ## v0.3.7
 
  - context-project-guide: `ref/` 的命名要求分成兩種位置 —— `yyyymmdd-` 前綴真正發揮

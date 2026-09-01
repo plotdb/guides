@@ -143,7 +143,10 @@ fedep 從 `node_modules` 複製套件到 `{root}/{模組名}/{版本}/`，並建
     - 清空舊內容 ( `git rm -r *` )
     - 複製 work folder 內容
     - `git add -f * && git commit -m "regen" && git push`
- 7. 建立 GitHub release ( `gh release create v{version} --target release --title {version} --notes-file -` )；release notes 從 CHANGELOG.md 解析後透過 stdin 傳入，若 CHANGELOG 無對應 section 改用 `--generate-notes`
+ 7. 建立 GitHub release ( `gh release create dist/v{version} --target release --title {version} --notes-file -` )；release notes 從 CHANGELOG.md 解析後透過 stdin 傳入，若 CHANGELOG 無對應 section 改用 `--generate-notes`
+ 8. 在當前的 source commit 上打 `src/v{version}` 並 push ( fedep 1.8.0 起 )。tag 已存在時略過，不覆寫
+
+兩個 tag 的命名慣例與適用情境見 [3.version-control.md](../../3.version-control.md) 的「Tag 命名」。走 npm 的 `fedep publish` 不打 tag。
 
 
 ### 前提條件
@@ -197,8 +200,9 @@ publish 的效果依「是否上 npm」與「是否有 dist」而不同。共通
 
 ### 有 dist、不上 npm ( `fedep publish -g` )
 
- - 發布內容推到 `release` branch 並建 GitHub release；tag `vX.Y.Z` 指向 release branch
- - 安裝端要裝 `github:<user>/<repo>#release` ( 或 `#vX.Y.Z` )，拿到的內容等同 npm 發布版
+ - 發布內容推到 `release` branch 並建 GitHub release；tag `dist/vX.Y.Z` 指向 release branch，`src/vX.Y.Z` 指向產生它的 source commit
+ - 安裝端要裝 `github:<user>/<repo>#release` ( 或 `#dist/vX.Y.Z` )，拿到的內容等同 npm 發布版。committish 含斜線不影響 npm 解析
+ - fedep 1.8.0 以前的裸 `vX.Y.Z` tag 指向 release branch，維持原狀不改名
  - 注意：裝 `#master` 拿到的是原始 repo — 若 `dist/` 沒 commit 進 master 就沒有 build 產物，且 `package.json` 路徑欄位仍指向 `dist/`，通常無法直接使用。不上 npm 的專案請引導使用者裝 `#release` 或 tag，或把 dist commit 進 master
 
 
