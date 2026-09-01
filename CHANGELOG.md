@@ -1,6 +1,6 @@
 # Change Logs
 
-## master
+## v0.3.7
 
  - context-project-guide: `ref/` 的命名要求分成兩種位置 —— `yyyymmdd-` 前綴真正發揮
    作用的是根層 `context/project/ref/` ( 沒有 scope、什麼都收、只會愈長愈大, 靠檔名的
