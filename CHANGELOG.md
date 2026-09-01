@@ -1,5 +1,14 @@
 # Change Logs
 
+## master
+
+ - context-project-guide: `ref/` 的命名要求分成兩種位置 —— `yyyymmdd-` 前綴真正發揮
+   作用的是根層 `context/project/ref/` ( 沒有 scope、什麼都收、只會愈長愈大, 靠檔名的
+   日期讓目錄列表自己成為索引 ); 主題資料夾下的 ref ( 如 `features/credit/ref/` ) 已經
+   被父層 scope 限縮, 路徑本身就回答了「這是關於什麼的」, 命名可以寬鬆。同一主題累積
+   出第二批時再用 `yyyymmdd-<intent>/` 分批, 只有一批時不必先分
+
+
 ## v0.3.6
 
  - context-project-guide: 新增 `ref/` —— 討論串、腦力激盪、外部建議、被取代的舊 spec,
