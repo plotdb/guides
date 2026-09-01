@@ -21,7 +21,7 @@
 
  - `find(node, selector, index)`：querySelector 簡化版。省略 index 返回陣列，有 index 返回單元素
  - `index(node)`：節點在父節點 childNodes 中的索引
- - `child(node)`：子節點陣列（等同 `Array.from(node.childNodes)`）
+ - `child(node)`：子節點陣列 ( 等同 `Array.from(node.childNodes)` )
  - `parent(node, selector, endNode?)`：向上找符合 selector 的祖先，找不到返回 null
  - `attr(node, name, value?)`：讀取或設置屬性；value 為物件時批量設置
  - `cls(node, o, p?, n?)`：class 操作：o 為物件時用 `{className: bool}`；o 為 bool 時 p=正類 n=負類
@@ -39,7 +39,7 @@
       .catch(err => {
         err.code   // HTTP 狀態碼
         err.data   // 原始回應
-        err.json   // 解析後的 JSON（若有）
+        err.json   // 解析後的 JSON ( 若有 )
       })
 
 ldqOptions 常用欄位：
@@ -55,7 +55,7 @@ ldqOptions 常用欄位：
     ld$.fetch.headers['X-CSRF-TOKEN'] = token
 
 
-## XHR 包裝（帶進度）
+## XHR 包裝 ( 帶進度 )
 
     ld$.xhr(url, rawOptions, {
       progress: ({percent, val, len}) => updateProgressBar(percent)
