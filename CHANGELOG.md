@@ -1,5 +1,25 @@
 # Change Logs
 
+## master
+
+ - lsc-coding-guide: 新增「位元運算要寫成 `.>>.` / `.&.` 這種前後加點的形式」——
+   六個位元運算子只有 `>>>` 與 `|` 會當場 parse error, `>>` / `<<` 變成函式合成、
+   `&` 變成把左運算元當函式呼叫、`^` 變成 `Math.pow`, 四個都編譯得過而要到執行期才炸。
+   `^` 最陰險, 對數字完全合法不拋錯, 只是算出完全不同的值。一元 `~` 與 JS 相同不用加點
+ - lsc-coding-guide: 新增「隱式呼叫會貪婪地吃掉整個後續運算式」—— 不加括號的呼叫,
+   參數會一路吃到運算式結尾, 連比較運算子與逗號後的其他參數都吃 ( `Math.max Math.abs p - a, 0`
+   會把 `0` 餵給 `abs` )。另註明括號前有空白等於沒括號: `Math.sqrt (a) * b` 仍是
+   `Math.sqrt(a * b)`, 括號要緊貼函式名
+ - lsc-coding-guide: 新增「後置 `if` 會綁進最近的函式, 不是綁在 `return` 上」——
+   `return arr.map (v) -> ... if cond` 的條件會鑽進 callback 內部, 變成無條件執行
+   且回傳一堆 null
+ - lsc-coding-guide: 新增「destructuring 參數裡不能放字串 key」, `({a, "b-c"}) ->`
+   是 invalid assign 的編譯錯誤, 與物件定義端可用引號 key 不對稱
+ - lsc-coding-guide: 「物件 key 含有連字號」補上定義端與存取端必須一致 ——
+   無引號的 `ab-weight:` 會編譯成 `abWeight`, 用 `obj["ab-weight"]` 讀到 undefined,
+   而失敗形式是往下游擴散成 NaN, NaN 的比較永遠是 false, 統計值顯示 0 看起來一切正常
+
+
 ## v0.3.8
 
  - version-control: 新增「Tag 命名」—— fedep 1.8.0 起 `publish -g` 會打兩個 tag,
