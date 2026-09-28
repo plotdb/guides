@@ -139,6 +139,13 @@ filter 生效。對照表存在 `<base>/.bundle-dep/manifest.json`，它同時�
  - 檔案頂端有 `//- module` → 跳過 ( 純 mixin 檔，不輸出 HTML )
  - 檔案頂端有 `//- view` → 只輸出 view JS，不輸出 HTML
 
+兩個 marker 只認第一行。實作在 `dist/ext/pug.js`，是 `/^\/\/- ?module ?/` 與
+`/^\/\/- ?view ?/`，沒有 `m` flag，寫在第二行以後不生效。
+
+`//- module` 是給被 include 的檔案用的 ( `base.pug`、`mixin.pug` 這類 )，不要加在
+進入點上。加錯了不會報錯：build 照跑、沒有任何訊息，只是那個檔永遠不出現在 `static`
+下，通常要到引用它的地方 404 才會發現。
+
 
 ## 重要設計
 
