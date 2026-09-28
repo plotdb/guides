@@ -1,5 +1,16 @@
 # Change Logs
 
+## master
+
+ - add 0.common-acronym.md
+ - srcbuild: 「Pug 編譯細節」補上 `//- module` / `//- view` 兩個 marker 的判定範圍與
+   誤用後果 —— 原本只列了行為, 沒說它們只認第一行 ( 實作是 `/^\/\/- ?module ?/`,
+   沒有 `m` flag ), 也沒說 `//- module` 是給被 include 的檔案用的。誤加在進入點上時
+   build 不會報任何錯, 只是該檔永遠不產出到 `static`, 要到引用處 404 才發現 ——
+   靜默失敗值得在文件裡點名, 否則讀者會照著 `base.pug` / `mixin.pug` 的樣子抄到
+   `index.pug` 上
+
+
 ## v0.3.9
 
  - context-project-guide: 新增 `initiative/` —— 放構想、草案與尚未定案的討論。
