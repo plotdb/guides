@@ -1,6 +1,6 @@
 # Framework Index
 
- - `@plotdb`：核心基礎設施：block 模組系統、表單驗證、OT 資料同步、config UI 生成、build server ( srcbuild )、前端依賴安裝 ( fedep )。文件：[@plotdb/index.md](@plotdb/index.md)
+ - `@plotdb`：核心基礎設施：block 模組系統、表單驗證、OT 資料同步、config UI 生成、確定性動畫與其製作工具 ( lotion、lotitor )、build server ( srcbuild )、前端依賴安裝 ( fedep )。文件：[@plotdb/index.md](@plotdb/index.md)
  - `@makeform`：表單 widget blocks：radio、checkbox、choice、共用 term 編輯器。文件：[@makeform/index.md](@makeform/index.md)
  - `@grantdash`：應用層：composer ( 表單設計器，作為 makeform blocks 的 host )。文件：[@grantdash/index.md](@grantdash/index.md)
  - `@loadingio`：前端工具：DOM 操作 ( ldquery )、防抖 ( debounce.js )。文件：[@loadingio/index.md](@loadingio/index.md)

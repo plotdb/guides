@@ -2,6 +2,11 @@
 
 ## master
 
+ - 新增 `framework/@plotdb/lotitor`：lotion 的製作工具 ( 形式指南、風格庫、素材與音訊生成 ) 拆成獨立的 private repo；
+   `framework/@plotdb/lotion` 隨之改指向 lotion 的 `prompt/lotion.md`，並說明讀不到 lotitor 時怎麼辦
+ - 新增 `framework/@plotdb/lotion`：安裝 ( npm 版 dist 已攤平，fedep 路徑是 `index.min.js` )、
+   基本寫法、用 `lotion sheet` 檢查畫面，以及實作 FB 設定教學動畫時踩到的陷阱 ——
+   `track` 的關鍵點時間是開始移動而非抵達，照直覺寫會讓元素在淡出後才起飛，畫面上完全看不到
  - add 0.common-acronym.md
  - srcbuild: 「Pug 編譯細節」補上 `//- module` / `//- view` 兩個 marker 的判定範圍與
    誤用後果 —— 原本只列了行為, 沒說它們只認第一行 ( 實作是 `/^\/\/- ?module ?/`,
