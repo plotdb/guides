@@ -2,6 +2,11 @@
 
 ## master
 
+ - version-control: 新增「Branch 與 Worktree」—— `dev/<topic>` branch，並行工作時用 worktree，
+   一律放在 repo 內的 `.worktree/<branch>`。放兄弟目錄容易遺留成 detached HEAD 加上未 commit 的
+   變更，事後分不清與正式 branch 是否一致。也記下 `.gitignore` 要每個 branch 都有，否則切回 master
+   時 `.worktree/` 會整個冒出來；以及新 worktree 不會帶出被 ignore 的檔案 ( node_modules、secret、
+   context/shared )
  - 新增 `framework/@plotdb/lotitor`：lotion 的製作工具 ( 形式指南、風格庫、素材與音訊生成 ) 拆成獨立的 private repo；
    `framework/@plotdb/lotion` 隨之改指向 lotion 的 `prompt/lotion.md`，並說明讀不到 lotitor 時怎麼辦
  - 新增 `framework/@plotdb/lotion`：安裝 ( npm 版 dist 已攤平，fedep 路徑是 `index.min.js` )、
